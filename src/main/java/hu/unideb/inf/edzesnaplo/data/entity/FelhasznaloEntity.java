@@ -3,6 +3,7 @@ package hu.unideb.inf.edzesnaplo.data.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +27,9 @@ public class FelhasznaloEntity {
     private String email;
     @Column(name = "cel")
     private String cel;
+
+    @OneToMany(mappedBy = "felhasznalo")
+    private List<KaloriaNaploEntity> kaloriaNaplo;
 
     public FelhasznaloEntity() {
     }

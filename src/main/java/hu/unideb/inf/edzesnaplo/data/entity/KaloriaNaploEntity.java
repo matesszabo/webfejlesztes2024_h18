@@ -21,6 +21,10 @@ public class KaloriaNaploEntity {
     @JoinColumn(name = "etel_id", referencedColumnName = "id")
     private EtelEntity etel;
 
+    @ManyToOne
+    @JoinColumn(name = "felhasznalo_id", referencedColumnName = "id")
+    private FelhasznaloEntity felhasznalo;
+
     public KaloriaNaploEntity() {
     }
 
@@ -60,6 +64,14 @@ public class KaloriaNaploEntity {
 
     public void setEtel(EtelEntity etel) {
         this.etel = etel;
+    }
+
+    public FelhasznaloEntity getFelhasznalo() {
+        return felhasznalo;
+    }
+
+    public void setFelhasznalo(FelhasznaloEntity felhasznalo) {
+        this.felhasznalo = felhasznalo;
     }
 
     @Override
