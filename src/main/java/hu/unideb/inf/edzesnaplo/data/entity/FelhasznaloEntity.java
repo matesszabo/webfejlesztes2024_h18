@@ -31,6 +31,13 @@ public class FelhasznaloEntity {
     @OneToMany(mappedBy = "felhasznalo")
     private List<KaloriaNaploEntity> kaloriaNaplo;
 
+    @ManyToMany
+    @JoinTable(name = "felhasznalo_jogosultsagok",
+            joinColumns = {@JoinColumn(name = "felhasznalo_id")},
+            inverseJoinColumns = {@JoinColumn(name = "jogosultsag_id")}
+    )
+    private List<JogosultsagEntity> jogosultsagok;
+
     public FelhasznaloEntity() {
     }
 
@@ -107,6 +114,14 @@ public class FelhasznaloEntity {
 
     public void setCel(String cel) {
         this.cel = cel;
+    }
+
+    public List<KaloriaNaploEntity> getKaloriaNaplo() {
+        return kaloriaNaplo;
+    }
+
+    public void setKaloriaNaplo(List<KaloriaNaploEntity> kaloriaNaplo) {
+        this.kaloriaNaplo = kaloriaNaplo;
     }
 
     @Override
