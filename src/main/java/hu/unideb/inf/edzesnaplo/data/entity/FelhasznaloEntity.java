@@ -38,6 +38,9 @@ public class FelhasznaloEntity {
     )
     private List<JogosultsagEntity> jogosultsagok;
 
+    @OneToMany(mappedBy = "felhasznalo")
+    private List<EdzesNaploEntity> edzesNaplo;
+
     public FelhasznaloEntity() {
     }
 
@@ -122,6 +125,22 @@ public class FelhasznaloEntity {
 
     public void setKaloriaNaplo(List<KaloriaNaploEntity> kaloriaNaplo) {
         this.kaloriaNaplo = kaloriaNaplo;
+    }
+
+    public List<JogosultsagEntity> getJogosultsagok() {
+        return jogosultsagok;
+    }
+
+    public void setJogosultsagok(List<JogosultsagEntity> jogosultsagok) {
+        this.jogosultsagok = jogosultsagok;
+    }
+
+    public List<EdzesNaploEntity> getEdzesNaplo() {
+        return edzesNaplo;
+    }
+
+    public void setEdzesNaplo(List<EdzesNaploEntity> edzesNaplo) {
+        this.edzesNaplo = edzesNaplo;
     }
 
     @Override
