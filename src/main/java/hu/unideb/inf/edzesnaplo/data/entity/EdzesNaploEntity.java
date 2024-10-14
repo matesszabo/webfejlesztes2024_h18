@@ -20,6 +20,10 @@ public class EdzesNaploEntity {
     @JoinColumn(name = "felhasznalo_id", referencedColumnName = "id")
     private FelhasznaloEntity felhasznalo;
 
+    @ManyToOne
+    @JoinColumn(name = "edzestipus_id", referencedColumnName = "id")
+    private EdzesTipusEntity edzesTipus;
+
     public EdzesNaploEntity() {
     }
 
@@ -60,6 +64,14 @@ public class EdzesNaploEntity {
 
     public void setFelhasznalo(FelhasznaloEntity felhasznalo) {
         this.felhasznalo = felhasznalo;
+    }
+
+    public EdzesTipusEntity getEdzesTipus() {
+        return edzesTipus;
+    }
+
+    public void setEdzesTipus(EdzesTipusEntity edzesTipus) {
+        this.edzesTipus = edzesTipus;
     }
 
     @Override
