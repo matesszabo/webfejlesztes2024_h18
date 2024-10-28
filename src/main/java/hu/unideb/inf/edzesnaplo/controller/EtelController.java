@@ -72,6 +72,28 @@ public class EtelController {
         return repository.findAllByNevContains(nev);
     }
 
+    //localhost:8080/api/filteretel?nev=rizs
+    //localhost:8080/api/filteretel?nev=rizs&kaloria=130
+    @GetMapping("filteretel")
+    public List<EtelEntity> filterEtel(@RequestParam(required = false) String nev,
+                                       @RequestParam(required = false) Integer kaloria,
+                                       @RequestParam(required = false) Float mennyiseg,
+                                       @RequestParam(required = false) String mennyisegiEgyseg){
+
+        List<EtelEntity> szurt = new ArrayList<>();
+        szurt = repository.findAll()
+                .stream()
+                .filter(x -> nev == null || x.getNev().contains(nev))
+                .filter(x -> kaloria == null || x.getKaloria() < kaloria)
+                .filter(x -> mennyiseg == null || x.getMennyiseg().equals(mennyiseg))
+                .filter(x -> mennyisegiEgyseg == null || x.getMennyisegiEgyseg().equals(mennyisegiEgyseg))
+                .toList();
+
+        return szurt;
+    }
+
+
+
 
 }
 
