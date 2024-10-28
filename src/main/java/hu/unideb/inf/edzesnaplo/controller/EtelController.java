@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController//json-t küld, json-t fogad
 @RequestMapping("/api")
 public class EtelController {
@@ -36,6 +38,18 @@ public class EtelController {
             return repository.save(etel);
         }
         return null;
+    }
+
+    //localhost:8080/api/etel?id=1 DELETE
+    @DeleteMapping("/etel")
+    public void delete(@RequestParam Long id){
+        repository.deleteById(id);
+    }
+
+    //localhost:8080/api/etel GET
+    @GetMapping("/etel")
+    public List<EtelEntity> findAll(){
+        return repository.findAll();
     }
 }
 
