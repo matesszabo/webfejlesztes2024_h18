@@ -61,4 +61,35 @@ public class EtelManagementServiceImpl implements EtelManagementService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public List<EtelDto> findByNev(String nev) {
+        List<EtelEntity> szurt = new ArrayList<>();
+
+        szurt = repo.findAll()
+                .stream()
+                .filter(x -> x.getNev().contains(nev))
+                .toList();
+
+        return mapper.map(szurt, new TypeToken<List<EtelDto>>(){}.getType());
+    }
+
+    @Override
+    public List<EtelDto> findByNevDb(String nev) {
+        return mapper.map(repo.findAllByNevContains(nev), new TypeToken<List<EtelDto>>(){}.getType());
+    }
+
+    @Override
+    public List<EtelDto> findByAny(String nev, Integer kaloria, Float mennyiseg, String mennyisegiEgyseg) {
+        List<EtelEntity> szurt = new ArrayList<>();
+        szurt = repo.findAll()
+                .stream()
+                .filter(x -> nev == null || x.getNev().contains(nev))
+                .filter(x -> kaloria == null || x.getKaloria() < kaloria)
+                .filter(x -> mennyiseg == null || x.getMennyiseg().equals(mennyiseg))
+                .filter(x -> mennyisegiEgyseg == null || x.getMennyisegiEgyseg().equals(mennyisegiEgyseg))
+                .toList();
+
+        return mapper.map(szurt, new TypeToken<List<EtelDto>>(){}.getType());
+    }
 }
