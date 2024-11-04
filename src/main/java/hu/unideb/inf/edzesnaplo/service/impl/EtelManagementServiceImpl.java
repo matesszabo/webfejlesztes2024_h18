@@ -4,15 +4,21 @@ import hu.unideb.inf.edzesnaplo.data.entity.EtelEntity;
 import hu.unideb.inf.edzesnaplo.data.repository.EtelRepository;
 import hu.unideb.inf.edzesnaplo.service.EtelManagementService;
 import hu.unideb.inf.edzesnaplo.service.dto.EtelDto;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EtelManagementServiceImpl implements EtelManagementService {
     @Autowired
     EtelRepository repo;
+
+    @Autowired
+    ModelMapper mapper;
 
     @Override
     public EtelDto findById(Long id) {
@@ -30,16 +36,29 @@ public class EtelManagementServiceImpl implements EtelManagementService {
 
     @Override
     public List<EtelDto> findAll() {
-        return List.of();
+        List<EtelEntity> entities = repo.findAll();
+        List<EtelDto> dtos = new ArrayList<>();
+
+        dtos = mapper.map(entities, new TypeToken<List<EtelDto>>(){}.getType());
+        return dtos;
     }
 
     @Override
     public EtelDto save(EtelDto etel) {
-        return null;
+        /*return mapper.map(repo.save(mapper.map(etel, EtelEntity.class))
+                , EtelDto.class);*/
+
+        EtelEntity entity = mapper.map(etel, EtelEntity.class);
+        entity = repo.save(entity);
+
+        EtelDto dto = new EtelDto();
+        dto = mapper.map(entity, EtelDto.class);
+
+        return dto;
     }
 
     @Override
     public void delete(Long id) {
-
+        repo.deleteById(id);
     }
 }
