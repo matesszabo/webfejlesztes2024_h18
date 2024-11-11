@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FelhasznaloRepository extends JpaRepository<FelhasznaloEntity, Long> {
+    //select * from felhasznalo where email = ?email
+    FelhasznaloEntity findByEmail(String email);
 }

@@ -1,14 +1,17 @@
 package hu.unideb.inf.edzesnaplo.data.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "felhasznalo")
-public class FelhasznaloEntity {
+public class FelhasznaloEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -154,5 +157,20 @@ public class FelhasznaloEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, nev, szuletesiDatum, suly, magassag, jelszo, email, cel);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return jelszo;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }
