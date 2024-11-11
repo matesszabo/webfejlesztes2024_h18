@@ -1,6 +1,7 @@
 package hu.unideb.inf.edzesnaplo.controller;
 
 import hu.unideb.inf.edzesnaplo.service.AuthService;
+import hu.unideb.inf.edzesnaplo.service.dto.BejelentkezesDto;
 import hu.unideb.inf.edzesnaplo.service.dto.RegisztracioDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,5 +18,10 @@ public class AuthController {
     @PostMapping("/regisztracio")
     public void regisztracio(@RequestBody RegisztracioDto dto){
         authService.regisztracio(dto);
+    }
+
+    @PostMapping("/bejelentkezes")
+    public void bejelentkezes(@RequestBody BejelentkezesDto dto){
+        authService.bejelentkezes(dto);
     }
 }
