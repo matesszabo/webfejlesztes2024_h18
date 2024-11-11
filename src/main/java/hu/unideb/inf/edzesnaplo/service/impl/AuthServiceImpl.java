@@ -42,9 +42,6 @@ public class AuthServiceImpl implements AuthService {
         }
 
         felhasznaloRepository.save(entity);
-
-
-
     }
 
     @Override
