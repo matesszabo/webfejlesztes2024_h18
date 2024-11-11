@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JogosultsagRepository extends JpaRepository<JogosultsagEntity, Long> {
+
+    //select * from Jogosultsag where nev = ?nev
+    JogosultsagEntity findByNev(String nev);
 }
