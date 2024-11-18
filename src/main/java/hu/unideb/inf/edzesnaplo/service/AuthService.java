@@ -5,5 +5,5 @@ import hu.unideb.inf.edzesnaplo.service.dto.RegisztracioDto;
 
 public interface AuthService {
     void regisztracio(RegisztracioDto dto);
-    void bejelentkezes(BejelentkezesDto dto);
+    String  bejelentkezes(BejelentkezesDto dto);
 }

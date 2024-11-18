@@ -5,6 +5,7 @@ import hu.unideb.inf.edzesnaplo.data.entity.JogosultsagEntity;
 import hu.unideb.inf.edzesnaplo.data.repository.FelhasznaloRepository;
 import hu.unideb.inf.edzesnaplo.data.repository.JogosultsagRepository;
 import hu.unideb.inf.edzesnaplo.service.AuthService;
+import hu.unideb.inf.edzesnaplo.service.JwtService;
 import hu.unideb.inf.edzesnaplo.service.dto.BejelentkezesDto;
 import hu.unideb.inf.edzesnaplo.service.dto.RegisztracioDto;
 import org.modelmapper.ModelMapper;
@@ -31,6 +32,8 @@ public class AuthServiceImpl implements AuthService {
     JogosultsagRepository jogRepo;
     @Autowired
     AuthenticationManager manager;
+    @Autowired
+    JwtService jwtService;
 
 
     @Override
@@ -53,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void bejelentkezes(BejelentkezesDto dto) {
+    public String bejelentkezes(BejelentkezesDto dto) {
 
         Authentication auth = manager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -61,9 +64,8 @@ public class AuthServiceImpl implements AuthService {
                         dto.getJelszo()
                 )
         );
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(auth);
-        SecurityContextHolder.setContext(context);
-
+        //FelhasznaloEntity, UserDetails
+        var user = felhasznaloRepository.findByEmail(dto.getEmail());
+        return jwtService.generateToken(user);
     }
 }
