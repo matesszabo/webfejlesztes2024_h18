@@ -34,7 +34,7 @@ public class FelhasznaloEntity implements UserDetails {
     @OneToMany(mappedBy = "felhasznalo")
     private List<KaloriaNaploEntity> kaloriaNaplo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "felhasznalo_jogosultsagok",
             joinColumns = {@JoinColumn(name = "felhasznalo_id")},
             inverseJoinColumns = {@JoinColumn(name = "jogosultsag_id")}
@@ -161,7 +161,7 @@ public class FelhasznaloEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return jogosultsagok;
     }
 
     @Override
