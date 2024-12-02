@@ -14,6 +14,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class EtelController {
 
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptions(){
+        return ResponseEntity.ok().build();
+    }
+
     @Autowired
     EtelManagementService service;
 
